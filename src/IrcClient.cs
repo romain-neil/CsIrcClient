@@ -34,6 +34,16 @@ namespace IrcClient
 			User = username;
 		}
 
+		public void SetUsername(string user)
+		{
+			User = user;
+		}
+
+		public void SetPort(int newPort)
+		{
+			Port = newPort;
+		}
+
 		public void Connect()
 		{
 			if (HostName != "" && Port != 0)
@@ -43,10 +53,15 @@ namespace IrcClient
 				_stream = _tcp.GetStream();
 				_reader = new StreamReader(_stream);
 				_writer = new StreamWriter(_stream) {NewLine = "\r\n", AutoFlush = true};
-				
+
 				_writer.WriteLine("NICK " + User);
 				_writer.WriteLine("JOIN defis");
 			}
+		}
+
+		public string Read()
+		{
+			return _reader.ReadLine();
 		}
 
 		public void Disconnect()
