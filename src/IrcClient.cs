@@ -24,7 +24,7 @@ namespace IrcClient
 		
 		public bool IsConnected()
 		{
-			return _tcp.Connected;
+			return _tcp is {Connected: true};
 		}
 
 		public IrcClient(string host = "localhost", int port = 0, string username = "")
@@ -55,23 +55,24 @@ namespace IrcClient
 				_writer = new StreamWriter(_stream) {NewLine = "\r\n", AutoFlush = true};
 
 				_writer.WriteLine("NICK " + User);
+				_writer.WriteLine("USER " + User + " 0 * " + User);
 			}
 		}
 
 		public void JoinChannel(string channel)
 		{
-			_writer.WriteLine("JOIN #" + channel);
+			_writer?.WriteLine("JOIN #" + channel);
 		}
 
 		public string? Read()
 		{
-			return _reader.ReadLine();
+			return _reader?.ReadLine();
 		}
 
 		public void Disconnect()
 		{
-			_writer.WriteLine("QUIT");
-			_tcp.Close();
+			_writer?.WriteLine("QUIT");
+			_tcp?.Close();
 		}
 	}
 }
