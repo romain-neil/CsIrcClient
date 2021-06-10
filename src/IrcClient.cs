@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using System.IO;
 using System.Net.Sockets;
 
@@ -12,16 +13,14 @@ namespace IrcClient
 
 		private string User { get; set; }
 		
+		private string Channel { get; set; }
+		
 		private TcpClient? _tcp;
 		
-		#region Internal needed vars
-
 		private Stream? _stream;
 		private StreamReader? _reader;
 		private StreamWriter? _writer;
-		
-		#endregion
-		
+
 		public bool IsConnected()
 		{
 			return _tcp is {Connected: true};
@@ -32,6 +31,11 @@ namespace IrcClient
 			HostName = host;
 			Port = port;
 			User = username;
+		}
+
+		public void SetHostName(string newHost)
+		{
+			HostName = newHost;
 		}
 
 		public void SetUsername(string user)
@@ -61,18 +65,42 @@ namespace IrcClient
 
 		public void JoinChannel(string channel)
 		{
+			Channel = channel;
 			_writer?.WriteLine("JOIN #" + channel);
 		}
 
 		public string? Read()
 		{
-			return _reader?.ReadLine();
+			return _reader?.ReadToEnd();
 		}
+
+		public void Send(string text)
+		{
+			try
+			{
+				_writer.WriteLine(text);
+			}
+			catch (Exception e)
+			{
+				throw new Exception(e.Message);
+			}
+		}
+		
+		public void SendToChat(string inputText)
+        {
+        	Send("PRIVMSG #" + Channel + " :" + inputText);
+        }
 
 		public void Disconnect()
 		{
-			_writer?.WriteLine("QUIT");
-			_tcp?.Close();
+			if (_tcp != null && _writer != null && _reader != null)
+			{
+				_reader.DiscardBufferedData();
+				_writer.WriteLine("QUIT");
+				_tcp.Close();
+			}
 		}
+
+		
 	}
 }
