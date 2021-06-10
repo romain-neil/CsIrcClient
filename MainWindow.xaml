@@ -6,21 +6,20 @@
         xmlns:local="clr-namespace:IrcClient"
         mc:Ignorable="d"
         Title="MainWindow" Height="458" Width="800">
-    <Grid>
-        <StackPanel>
-            <Menu VerticalAlignment="Top" HorizontalAlignment="Left">
-                <MenuItem Name="MenuSettings" Header="Options" Click="MenuSettings_OnClick" />
-                <MenuItem Header="Serveur">
-                    <MenuItem Name="MenuConnect" Header="Se connecter ..." Click="MenuConnect_Click" />
-                    <MenuItem Name="MenuDisconnect" Header="Se déconnecter" Click="MenuDisconnect_Click" />
-                </MenuItem>
-            </Menu>
-            <TextBlock x:Name="Tb" Height="400">
-            </TextBlock>
-            <DockPanel VerticalAlignment="Bottom">
-                <TextBox x:Name="Input" Width="745"></TextBox>
-                <Button x:Name="BtnSend" Width="50" Content="Envoyer" Click="Button_Click" />
-            </DockPanel>
-        </StackPanel>
-    </Grid>
+	<Grid>
+		<StackPanel>
+			<Menu VerticalAlignment="Top" HorizontalAlignment="Left">
+				<MenuItem Name="MenuSettings" Header="Options" Click="MenuSettings_OnClick" />
+				<MenuItem Header="Serveur">
+					<MenuItem Name="MenuConnect" Header="Se connecter ..." Click="MenuConnect_Click" />
+					<MenuItem Name="MenuDisconnect" Header="Se déconnecter" Click="MenuDisconnect_Click" />
+				</MenuItem>
+			</Menu>
+			<TextBlock x:Name="Tb" Height="400" />
+			<DockPanel VerticalAlignment="Bottom">
+				<TextBox x:Name="Input" Width="745" />
+				<Button x:Name="BtnSend" Width="50" Content="Envoyer" Click="Button_Click" />
+			</DockPanel>
+		</StackPanel>
+	</Grid>
 </Window>
