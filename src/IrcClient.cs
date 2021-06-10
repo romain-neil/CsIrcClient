@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#nullable enable
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 
@@ -55,17 +56,22 @@ namespace IrcClient
 				_writer = new StreamWriter(_stream) {NewLine = "\r\n", AutoFlush = true};
 
 				_writer.WriteLine("NICK " + User);
-				_writer.WriteLine("JOIN defis");
 			}
 		}
 
-		public string Read()
+		public void JoinChannel(string channel)
+		{
+			_writer.WriteLine("JOIN #" + channel);
+		}
+
+		public string? Read()
 		{
 			return _reader.ReadLine();
 		}
 
 		public void Disconnect()
 		{
+			_writer.WriteLine("QUIT");
 			_tcp.Close();
 		}
 	}
