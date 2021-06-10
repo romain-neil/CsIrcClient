@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace IrcClient
 {
@@ -20,7 +19,7 @@ namespace IrcClient
 
 		private void MenuConnect_Click(object sender, RoutedEventArgs e)
 		{
-			if (_irc.IsConnected) return;
+			if (_irc.IsConnected()) return;
 
 			MenuConnect.IsEnabled = false;
 			MenuDisconnect.IsEnabled = true;
@@ -29,7 +28,7 @@ namespace IrcClient
 
 		private void MenuDisconnect_Click(object sender, RoutedEventArgs e)
 		{
-			if (!_irc.IsConnected) return;
+			if (!_irc.IsConnected()) return;
 			
 			MenuConnect.IsEnabled = true;
 			MenuDisconnect.IsEnabled = false;
@@ -39,5 +38,11 @@ namespace IrcClient
         private void Button_Click(object sender, RoutedEventArgs e) {
 
         }
-    }
+
+        private void MenuSettings_OnClick(object sender, RoutedEventArgs e)
+        {
+	        var settingsWindow = new SettingsWindow();
+	        settingsWindow.Show();
+        }
+	}
 }
