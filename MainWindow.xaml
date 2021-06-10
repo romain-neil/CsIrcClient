@@ -15,10 +15,10 @@
 					<MenuItem Name="MenuDisconnect" Header="Se déconnecter" Click="MenuDisconnect_Click" />
 				</MenuItem>
 			</Menu>
-			<TextBlock x:Name="Tb" Height="400" />
+			<TextBox x:Name="Tb" Height="400" TextWrapping="Wrap" VerticalAlignment="Bottom" />
 			<DockPanel VerticalAlignment="Bottom">
 				<TextBox x:Name="Input" Width="745" />
-				<Button x:Name="BtnSend" Width="50" Content="Envoyer" Click="Button_Click" />
+				<Button x:Name="BtnSend" Width="50" Content="Envoyer" Click="BtnSend_OnClick" />
 			</DockPanel>
 		</StackPanel>
 	</Grid>

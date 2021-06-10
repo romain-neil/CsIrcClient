@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace IrcClient
 {
@@ -17,13 +18,19 @@ namespace IrcClient
 			_irc = new IrcClient();
 		}
 
+		public IrcClient GetIrcClient()
+		{
+			return _irc;
+		}
+
 		private void MenuConnect_Click(object sender, RoutedEventArgs e)
 		{
 			if (_irc.IsConnected()) return;
 
 			MenuConnect.IsEnabled = false;
 			MenuDisconnect.IsEnabled = true;
-			_irc.Connect();
+			
+			ConnectToServer();
 		}
 
 		private void MenuDisconnect_Click(object sender, RoutedEventArgs e)
@@ -35,14 +42,34 @@ namespace IrcClient
 			_irc.Disconnect();
 		}
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
-
-        }
-
         private void MenuSettings_OnClick(object sender, RoutedEventArgs e)
         {
 	        var settingsWindow = new SettingsWindow();
 	        settingsWindow.Show();
+        }
+
+        private void ConnectToServer()
+        {
+	        _irc.Connect();
+            _irc.JoinChannel("defis");
+            //string msg;
+
+            //do
+            //{
+            //	msg = _irc.Read();
+            //    Tb.AppendText(msg);
+            //    Tb.AppendText(Environment.NewLine);
+            //} while (msg != null);
+        }
+
+        private void BtnSend_OnClick(object sender, RoutedEventArgs e)
+        {
+	        if (Input.Text != "")
+	        {
+		        _irc.SendToChat(Input.Text);
+		        Tb.AppendText(Input.Text + Environment.NewLine);
+		        Input.Text = "";
+	        }
         }
 	}
 }
