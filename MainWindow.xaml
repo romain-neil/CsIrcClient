@@ -9,6 +9,7 @@
     <Grid>
         <StackPanel>
             <Menu VerticalAlignment="Top" HorizontalAlignment="Left">
+                <MenuItem Name="MenuSettings" Header="Options" Click="MenuSettings_OnClick" />
                 <MenuItem Header="Serveur">
                     <MenuItem Name="MenuConnect" Header="Se connecter ..." Click="MenuConnect_Click" />
                     <MenuItem Name="MenuDisconnect" Header="Se déconnecter" Click="MenuDisconnect_Click" />
