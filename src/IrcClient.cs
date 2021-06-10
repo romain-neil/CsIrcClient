@@ -1,25 +1,24 @@
 ﻿#nullable enable
 using System.IO;
-using System.Net;
 using System.Net.Sockets;
 
 namespace IrcClient
 {
 	public class IrcClient
 	{
-		public string HostName { get; set; }
+		private string HostName { get; set; }
+
+		private int Port { get; set; }
+
+		private string User { get; set; }
 		
-		public int Port { get; set; }
-		
-		public string User { get; set; }
-		
-		private TcpClient _tcp;
+		private TcpClient? _tcp;
 		
 		#region Internal needed vars
 
-		private Stream _stream;
-		private StreamReader _reader;
-		private StreamWriter _writer;
+		private Stream? _stream;
+		private StreamReader? _reader;
+		private StreamWriter? _writer;
 		
 		#endregion
 		
