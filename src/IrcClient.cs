@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
 using System.Net.Sockets;
 
 namespace IrcClient
@@ -12,6 +13,14 @@ namespace IrcClient
 		public string User { get; set; }
 		
 		private TcpClient _tcp;
+		
+		#region Internal needed vars
+
+		private Stream _stream;
+		private StreamReader _reader;
+		private StreamWriter _writer;
+		
+		#endregion
 		
 		public bool IsConnected()
 		{
@@ -30,6 +39,13 @@ namespace IrcClient
 			if (HostName != "" && Port != 0)
 			{
 				_tcp = new TcpClient(HostName, Port);
+
+				_stream = _tcp.GetStream();
+				_reader = new StreamReader(_stream);
+				_writer = new StreamWriter(_stream) {NewLine = "\r\n", AutoFlush = true};
+				
+				_writer.WriteLine("NICK " + User);
+				_writer.WriteLine("JOIN defis");
 			}
 		}
 
