@@ -8,7 +8,7 @@ namespace IrcClient
 	public partial class MainWindow : Window
 	{
 
-		private IrcClient _irc;
+		private readonly IrcClient _irc;
 		
 		public MainWindow()
 		{
